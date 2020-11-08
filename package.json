@@ -1,6 +1,6 @@
 {
   "name": "@featurepeek/next-plugin-featurepeek",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "nextjs": {
     "name": "FeaturePeek"
   },
