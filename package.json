@@ -1,8 +1,9 @@
 {
-  "name": "@featurepeek/next-plugin-featurepeek",
-  "version": "0.1.1",
+  "name": "@next/plugin-featurepeek",
+  "version": "0.1.2",
   "nextjs": {
-    "name": "FeaturePeek"
+    "name": "FeaturePeek",
+    "required-env": []
   },
   "peerDependencies": {
     "next": "*",
