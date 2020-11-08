@@ -1,6 +1,6 @@
 {
   "name": "@next/plugin-featurepeek",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "nextjs": {
     "name": "FeaturePeek",
     "required-env": []

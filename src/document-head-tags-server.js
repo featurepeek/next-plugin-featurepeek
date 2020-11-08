@@ -2,10 +2,9 @@ import React from 'react'
 
 export default async function headTags() {
   const { env } = process
-  console.log(env)
 
   // short-circuit if not opted-in via env var
-  if (!env.VERCEL_URL) {
+  if (!env.FEATUREPEEK_ENABLE) {
     return null
   }
 
