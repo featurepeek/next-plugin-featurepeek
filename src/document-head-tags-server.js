@@ -5,17 +5,20 @@ export default async function headTags() {
 
   // short-circuit if not opted-in via env var
   if (!env.FEATUREPEEK_ENABLE) {
+    console.log('process.env.FEATUREPEEK_ENABLE is not present, skipping FeaturePeek...')
     return null
   }
 
   // detect version control. atm only github is supported
   let vcs = 'other'
-  if (env.VERCEL_GITHUB_DEPLOYMENT) {
+  if (env.VERCEL_GITHUB_ORG && env.VERCEL_GITHUB_REPO) {
     vcs = 'github'
-  } else if (env.VERCEL_GITLAB_DEPLOYMENT) {
+  } else if (env.VERCEL_GITLAB_PROJECT_NAMESPACE && env.VERCEL_GITLAB_PROJECT_NAME) {
     vcs = 'gitlab'
-  } else if (env.VERCEL_BITBUCKET_DEPLOYMENT) {
+  } else if (env.VERCEL_BITBUCKET_REPO_OWNER && env.VERCEL_BITBUCKET_REPO_NAME) {
     vcs = 'bitbucket'
+  } else {
+    console.log('Warning: You are missing environment variables required for FeaturePeek to function properly.')
   }
 
   return (
@@ -26,10 +29,10 @@ export default async function headTags() {
             window.__FEATUREPEEK__ = {
               branch: '${env.VERCEL_GITHUB_COMMIT_REF || env.VERCEL_GITLAB_COMMIT_REF || env.VERCEL_BITBUCKET_COMMIT_REF}',
               env: '${env.FEATUREPEEK_DASHBOARD_ENV || ''}',
-              hostname: '${env.VERCEL_URL}',
               org: '${env.VERCEL_GITHUB_ORG || env.VERCEL_GITLAB_PROJECT_NAMESPACE || env.VERCEL_BITBUCKET_REPO_OWNER}',
               repo: '${env.VERCEL_GITHUB_REPO || env.VERCEL_GITLAB_PROJECT_NAME || env.VERCEL_BITBUCKET_REPO_NAME}',
               sha: '${env.VERCEL_GITHUB_COMMIT_SHA || env.VERCEL_GITLAB_COMMIT_SHA || env.VERCEL_BITBUCKET_COMMIT_SHA}',
+              paas: 'vercel',
               vcs: '${vcs}',
             }
           `,
