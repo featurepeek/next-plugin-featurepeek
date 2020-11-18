@@ -5,7 +5,6 @@ export default async function headTags() {
 
   // short-circuit if not opted-in via env var
   if (!env.FEATUREPEEK_ENABLE) {
-    console.log('process.env.FEATUREPEEK_ENABLE is not present, skipping FeaturePeek...')
     return null
   }
 
@@ -17,8 +16,6 @@ export default async function headTags() {
     vcs = 'gitlab'
   } else if (env.VERCEL_BITBUCKET_REPO_OWNER && env.VERCEL_BITBUCKET_REPO_NAME) {
     vcs = 'bitbucket'
-  } else {
-    console.log('Warning: You are missing environment variables required for FeaturePeek to function properly.')
   }
 
   return (
